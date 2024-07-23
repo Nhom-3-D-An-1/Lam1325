@@ -15,18 +15,16 @@ public class Model_SanPham {
     private String maSP;
     private String tenSP;
     private float giaTien;
-    private String moTa;
     private String trangThai;
     private String maDanhMuc;
 
     public Model_SanPham() {
     }
 
-    public Model_SanPham(String maSP, String tenSP, float giaTien, String moTa, String trangThai, String maDanhMuc) {
+    public Model_SanPham(String maSP, String tenSP, float giaTien, String trangThai, String maDanhMuc) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.giaTien = giaTien;
-        this.moTa = moTa;
         this.trangThai = trangThai;
         this.maDanhMuc = maDanhMuc;
     }
@@ -55,13 +53,6 @@ public class Model_SanPham {
         this.giaTien = giaTien;
     }
 
-    public String getMoTa() {
-        return moTa;
-    }
-
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
 
     public String getTrangThai() {
         return trangThai;
@@ -80,6 +71,6 @@ public class Model_SanPham {
     }
     
     public Object[] toDataRow(){
-        return new Object[]{this.getMaSP(),this.getTenSP(),this.getGiaTien(),this.getMoTa(),this.getTrangThai(),this.getMaDanhMuc()};
+        return new Object[]{this.getMaSP(),this.getTenSP(),this.getGiaTien(),this.getTrangThai(),this.getMaDanhMuc()};
     }
 }

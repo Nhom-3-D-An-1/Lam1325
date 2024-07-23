@@ -19,17 +19,17 @@ public class Repo_DanhMuc {
     
     public ArrayList<Model_DanhMuc> getAll1(){
         ArrayList<Model_DanhMuc> listdm = new ArrayList<>();
-        sql = "Select MaDanhMuc,TenDanhMuc,MoTa from DanhMucChiTiet";
+        sql = "Select MaDanhMuc,TenDanhMuc,TrangThai from DanhMucChiTiet";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             while(rs.next()){
-                String maDM,tenDM,moTa;
+                String maDM,tenDM,trangThai;
                 maDM = rs.getString(1);
                 tenDM = rs.getString(2);
-                moTa = rs.getString(3);
-                Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
+                trangThai = rs.getString(3);
+                Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM,trangThai);
                 listdm.add(dm);
                         
             }
@@ -40,13 +40,13 @@ public class Repo_DanhMuc {
         }
     }
     public int them1(Model_DanhMuc m2){
-        sql = "Insert into DanhMucChiTiet (MaDanhMuc,TenDanhMuc,MoTa) values (?,?,?)";
+        sql = "Insert into DanhMucChiTiet (MaDanhMuc,TenDanhMuc,TrangThai) values (?,?,?)";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, m2.getMaDanhMuc());
             pr.setObject(2, m2.getTenDanhMuc());
-            pr.setObject(3, m2.getMoTa());
+            pr.setObject(3, m2.getTrangThai());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,12 +70,12 @@ public class Repo_DanhMuc {
         return false;
     }
     public int sua1(Model_DanhMuc m2 ,String maDM){
-        sql = "Update DanhMucChiTiet set TenDanhMuc =?, MoTa =? where MaDanhMuc =?";
+        sql = "Update DanhMucChiTiet set TenDanhMuc =?, TrangThai =? where MaDanhMuc =?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, m2.getTenDanhMuc());
-            pr.setObject(2, m2.getMoTa());
+            pr.setObject(2, m2.getTrangThai());
             pr.setObject(3, maDM);
             return pr.executeUpdate();
         } catch (Exception e) {
@@ -97,18 +97,18 @@ public class Repo_DanhMuc {
     }
      public ArrayList<Model_DanhMuc> TimKiem1(String tenDMct){
         ArrayList<Model_DanhMuc> listdm = new ArrayList<>();
-        sql = "Select MaDanhMuc,TenDanhMuc,MoTa from DanhMucChiTiet where TenDanhMuc like ?";
+        sql = "Select MaDanhMuc,TenDanhMuc,TrangThai from DanhMucChiTiet where TenDanhMuc like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1,'%'+tenDMct+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maDM,tenDM,moTa;
+                String maDM,tenDM,trangThai;
                 maDM = rs.getString(1);
                 tenDM = rs.getString(2);
-                moTa = rs.getString(3);
-                Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
+                trangThai = rs.getString(3);
+                Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM,trangThai);
                 listdm.add(dm);
                         
             }

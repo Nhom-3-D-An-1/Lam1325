@@ -14,15 +14,15 @@ import QuanLySanPham_DanhMuc.*;
 public class Model_DanhMuc {
     private String maDanhMuc;
     private String tenDanhMuc;
-    private String moTa;
+    private String trangThai;
 
     public Model_DanhMuc() {
     }
 
-    public Model_DanhMuc(String maDanhMuc, String tenDanhMuc, String moTa) {
+    public Model_DanhMuc(String maDanhMuc, String tenDanhMuc, String trangThai) {
         this.maDanhMuc = maDanhMuc;
         this.tenDanhMuc = tenDanhMuc;
-        this.moTa = moTa;
+        this.trangThai = trangThai;
     }
 
     public String getMaDanhMuc() {
@@ -41,15 +41,15 @@ public class Model_DanhMuc {
         this.tenDanhMuc = tenDanhMuc;
     }
 
-    public String getMoTa() {
-        return moTa;
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
     
     public Object[] toDaTaRow1(){
-        return new Object[]{this.getMaDanhMuc(),this.getTenDanhMuc(),this.getMoTa()};
+        return new Object[]{this.getMaDanhMuc(),this.getTenDanhMuc(),this.getTrangThai()};
     }
 }
