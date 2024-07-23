@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package QuanLyVoucher;
+package QuanLyVouCher123;
 
 import QuanLyVoucher.*;
+import QuanLyVoucher.*;
+import com.toedter.calendar.JDateChooser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 //import Repo.Repo_Voucher;
@@ -22,6 +24,8 @@ public class QuanLyVoucher extends javax.swing.JFrame {
     private Repo_Voucher repo_Voucher = new Repo_Voucher();
     private DefaultTableModel dtm = new DefaultTableModel();
     private int i=-1;
+//    private  JDateChooser Jdatengaybd = new JDateChooser();
+//    private JDateChooser Jdatengaykt = new JDateChooser();
     public QuanLyVoucher() {
         
         initComponents();
@@ -39,8 +43,8 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         txtmavoucher.setText("");
         txttenvoucher.setText("");
         txtsotiengiam.setText("");
-        txtngaybatdau.setText("");
-        txtngayketthuc.setText("");
+        Jdatengaybd.setDate(new Date());
+        jdatengaykt.setDate(new Date());
         rdoconhieuluc.setSelected(true);
     }
     void showData(int i){
@@ -54,8 +58,13 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         txtmavoucher.setText(maVoucher);
         txttenvoucher.setText(tenVoucher);
         txtsotiengiam.setText(soTienGiam);
-        txtngaybatdau.setText(ngayBatDau);
-        txtngayketthuc.setText(ngayKetThuc);
+        try {
+            Jdatengaybd.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(ngayBatDau));
+            jdatengaykt.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(ngayKetThuc));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
         if(trangThai.equals("Con Hieu Luc")){
             rdoconhieuluc.setSelected(true);
         }else{
@@ -79,10 +88,10 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         txtmavoucher = new javax.swing.JTextField();
         txttenvoucher = new javax.swing.JTextField();
         txtsotiengiam = new javax.swing.JTextField();
-        txtngaybatdau = new javax.swing.JTextField();
-        txtngayketthuc = new javax.swing.JTextField();
         rdoconhieuluc = new javax.swing.JRadioButton();
         rdohethieuluc = new javax.swing.JRadioButton();
+        Jdatengaybd = new com.toedter.calendar.JDateChooser();
+        jdatengaykt = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         btnthem = new javax.swing.JButton();
         btnsua = new javax.swing.JButton();
@@ -92,7 +101,6 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         tblQLVoucher = new javax.swing.JTable();
         txttimkiem = new javax.swing.JTextField();
         btntimkiem = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         jInternalFrame1.setVisible(true);
 
@@ -144,6 +152,10 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         buttonGroup1.add(rdohethieuluc);
         rdohethieuluc.setText("Hết hiệu lực");
 
+        Jdatengaybd.setDateFormatString("yyyy-MM-dd");
+
+        jdatengaykt.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,36 +174,39 @@ public class QuanLyVoucher extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdoconhieuluc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdohethieuluc)))
+                        .addComponent(rdohethieuluc))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jdatengaykt, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(Jdatengaybd, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(55, 55, 55))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(txtmavoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel4)
+                        .addComponent(txtmavoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Jdatengaybd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txttenvoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txttenvoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addComponent(jdatengaykt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -284,8 +299,6 @@ public class QuanLyVoucher extends javax.swing.JFrame {
             }
         });
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -299,19 +312,15 @@ public class QuanLyVoucher extends javax.swing.JFrame {
                 .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btntimkiem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txttimkiem)
-                        .addComponent(btntimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txttimkiem)
+                    .addComponent(btntimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -366,16 +375,16 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         String maVoucher = txtmavoucher.getText().trim();
         String tenKM = txttenvoucher.getText().trim();
         String soTienGiamstr = txtsotiengiam.getText().trim();
-        String ngayBatDau = txtngaybatdau.getText().trim();
-        String ngayKetThuc = txtngayketthuc.getText().trim();
+        Date ngaybd = Jdatengaybd.getDate();
+        Date ngaykt = jdatengaykt.getDate();
         String trangThai;
         if(rdoconhieuluc.isSelected()){
             trangThai = "Con Hieu Luc";
         }else{
             trangThai = "Het Hieu Luc";
         }
-        if(maVoucher.isEmpty()||tenKM.isEmpty()||ngayBatDau.isEmpty()||ngayKetThuc.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
+        if(maVoucher.isEmpty()||tenKM.isEmpty()||ngaybd==null||ngaykt==null){
+        JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
             return;  
         }
         float soTienGiam;
@@ -389,29 +398,18 @@ public class QuanLyVoucher extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Vui lòng nhập số tiền giảm là số nguyên");
             return;
         }
-                // Kiểm tra định dạng ngày
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// khởi tạo dối tượng ,đối tượng được tạo ra theo định dạng năm tháng ngày
-            sdf.setLenient(false);// đảm bảo ngày nhập luôn hợp lệ, ví dụ ngày 30-02-2024 là sai
-            try {
-                Date startDate = sdf.parse(ngayBatDau);
-                Date endDate = sdf.parse(ngayKetThuc);
-                // Sử dụng phương thức parse của SimpleDateFormat để chuyển đổi ngaybd, ngaykt thành Date, nếu không khớp yyyy-mm-đ thì hiện thôngbaos lỗi
-        
-                if (startDate.after(endDate)) {
-                    JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
-                    return;
-                }
-                // kiêmr tra xem ngày bắt đầu có sau ngày kt không , ví dụ ngàybd 2024-03-03,ngày kt 2024 -03-02;
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(this, "Ngày phải theo định dạng yyyy-MM-dd");
-                return;
-            }
-            // nếu nhập vào không khớp yyyy-mm-dd thì hiện thông báo lỗi
+        if (ngaybd.after(ngaykt)) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
+            return;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         String strNgayBatDau = sdf.format(ngaybd);
+         String strNgayKetThuc = sdf.format(ngaykt);
         if(repo_Voucher.exitByMa(maVoucher)){
             JOptionPane.showMessageDialog(this, "Mã bị Trùng ! Vui lòng đổi mã khác");
             return;
         }
-        Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
+        Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngaybd, ngaykt,trangThai);
         this.repo_Voucher.them(mv);
         this.fillTable(repo_Voucher.getAll());
         this.clearForm();
@@ -427,15 +425,15 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         String maVoucher = txtmavoucher.getText().trim();
         String tenKM = txttenvoucher.getText().trim();
         String soTienGiamstr = txtsotiengiam.getText().trim();
-        String ngayBatDau = txtngaybatdau.getText().trim();
-        String ngayKetThuc = txtngayketthuc.getText().trim();
+        Date ngaybd = Jdatengaybd.getDate();
+        Date ngaykt = jdatengaykt.getDate();
         String trangThai;
         if(rdoconhieuluc.isSelected()){
             trangThai = "Con Hieu Luc";
         }else{
             trangThai = "Het Hieu Luc";
         }
-        if(maVoucher.isEmpty()||tenKM.isEmpty()||ngayBatDau.isEmpty()||ngayKetThuc.isEmpty()){
+        if(maVoucher.isEmpty()||tenKM.isEmpty()||ngaybd==null||ngaykt==null){
             JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
             return;  
         }
@@ -450,25 +448,15 @@ public class QuanLyVoucher extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Vui lòng nhập số tiền giảm là số nguyên");
             return;
         }
-        // Kiểm tra định dạng ngày
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// khởi tạo dối tượng ,đối tượng được tạo ra theo định dạng năm tháng ngày
-            sdf.setLenient(false);// đảm bảo ngày nhập luôn hợp lệ, ví dụ ngày 30-02-2024 là sai
-            try {
-                Date startDate = sdf.parse(ngayBatDau);
-                Date endDate = sdf.parse(ngayKetThuc);
-                // Sử dụng phương thức parse của SimpleDateFormat để chuyển đổi ngaybd, ngaykt thành Date, nếu không khớp yyyy-mm-đ thì hiện thôngbaos lỗi
+        if (ngaybd.after(ngaykt)) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
+            return;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         String strNgayBatDau = sdf.format(ngaybd);
+         String strNgayKetThuc = sdf.format(ngaykt);
         
-                if (startDate.after(endDate)) {
-                    JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
-                    return;
-                }
-                // kiêmr tra xem ngày bắt đầu có sau ngày kt không , ví dụ ngàybd 2024-03-03,ngày kt 2024 -03-02;
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(this, "Ngày phải theo định dạng yyyy-MM-dd");
-                return;
-            }
-            // nếu nhập vào không khớp yyyy-mm-dd thì hiện thông báo lỗi
-        Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
+        Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngaybd, ngaykt, trangThai);
         this.repo_Voucher.sua(mv, maVoucher);
         this.fillTable(repo_Voucher.getAll());
         this.clearForm();
@@ -491,10 +479,12 @@ public class QuanLyVoucher extends javax.swing.JFrame {
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
         String maVoucherct = txttimkiem.getText().trim();
-        if(repo_Voucher.timkiem(maVoucherct).isEmpty()){
-            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo ten voucher vừa tìm");
+        String tenVct = txttimkiem.getText().trim();
+        String trangThaict = txttimkiem.getText().trim();
+        if(repo_Voucher.timkiem(maVoucherct, tenVct, trangThaict).isEmpty()){
+            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách ");
         }else{
-            this.fillTable(repo_Voucher.timkiem(maVoucherct));
+            this.fillTable(repo_Voucher.timkiem(maVoucherct, tenVct, trangThaict));
             JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
         }
     }//GEN-LAST:event_btntimkiemActionPerformed
@@ -532,6 +522,10 @@ public class QuanLyVoucher extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -542,12 +536,12 @@ public class QuanLyVoucher extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser Jdatengaybd;
     private javax.swing.JButton btnsua;
     private javax.swing.JButton btnthem;
     private javax.swing.JButton btntimkiem;
     private javax.swing.JButton btnxoa;
     private javax.swing.ButtonGroup buttonGroup1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -560,12 +554,11 @@ public class QuanLyVoucher extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser jdatengaykt;
     private javax.swing.JRadioButton rdoconhieuluc;
     private javax.swing.JRadioButton rdohethieuluc;
     private javax.swing.JTable tblQLVoucher;
     private javax.swing.JTextField txtmavoucher;
-    private javax.swing.JTextField txtngaybatdau;
-    private javax.swing.JTextField txtngayketthuc;
     private javax.swing.JTextField txtsotiengiam;
     private javax.swing.JTextField txttenvoucher;
     private javax.swing.JTextField txttimkiem;

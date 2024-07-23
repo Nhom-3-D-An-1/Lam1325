@@ -36,73 +36,74 @@ public class QuanLySanPham extends javax.swing.JFrame {
         }
         fillTable(repo_SP.getAll());
         fillTable1(repo_DanhMuc.getAll1());
+
         this.populateFilterCombos();
         this.populateFilterCombos1();
         this.populateFilterCombos2();
     }
-    private void populateFilterCombos() {
-        cbbtensp.addItem("All");
-        for (Model_SanPham sp : repo_SP.getAll()) {
-            cbbtensp.addItem(sp.getTenSP());
-        }
-    }
-    private void filterProducts() {
-        String selectedName = cbbtensp.getSelectedItem().toString();
-        ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-        if (!selectedName.equals("All")) {
-            filteredList = repo_SP.filterByName(selectedName);
-        }
-        fillTable(filteredList);
-    }
-    
-    
-    private void populateFilterCombos1(){
-        cbbtrangThai.addItem("All");
-        cbbtrangThai.addItem("Con hang");
-        cbbtrangThai.addItem("Het hang");
-    }
-    private void filterProducts1(){
-        String selectedtrangThai = cbbtrangThai.getSelectedItem().toString();
-        ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-        if(!selectedtrangThai.equals("All")){
-            switch(selectedtrangThai){
-                case "Con hang":
-                    filteredList = repo_SP.filterByTrangThai("Con hang");
-                    break;
-                case "Het hang":
-                    filteredList = repo_SP.filterByTrangThai("Het hang");
-                    break;
+        private void populateFilterCombos() {
+            cbbtensp.addItem("All");
+            for (Model_SanPham sp : repo_SP.getAll()) {
+                cbbtensp.addItem(sp.getTenSP());
             }
         }
-        fillTable(filteredList);
-    }
-    private void  populateFilterCombos2(){
-        cbbgiatien.addItem("All");
-        cbbgiatien.addItem("< 10000");
-        cbbgiatien.addItem("10000 - 50000");
-        cbbgiatien.addItem(">=50000");
-    }
-    private void filterProducts2(){
-        String selectedPriceRange = cbbgiatien.getSelectedItem().toString();
-        ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-        if (!selectedPriceRange.equals("All")) {
-            switch (selectedPriceRange) {
-                case "< 10000":
-                    filteredList = repo_SP.filterByPriceRange(0, 10000);
-                    break;
-                case "10000 - 50000":
-                    filteredList = repo_SP.filterByPriceRange(10001, 50000);
-                    break;
-                case ">=50000":
-                    filteredList = repo_SP.filterByPriceRange(50001, Float.MAX_VALUE);
-                    break;
+        private void filterProducts() {
+            String selectedName = cbbtensp.getSelectedItem().toString();
+            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+            if (!selectedName.equals("All")) {
+                filteredList = repo_SP.filterByName(selectedName);
             }
+            fillTable(filteredList);
         }
-        fillTable(filteredList);
-    }
-    private void  populateFilterCombos3(){
         
-    }
+        
+        private void populateFilterCombos1(){
+            cbbtrangThai.addItem("All");
+            cbbtrangThai.addItem("Con hang");
+            cbbtrangThai.addItem("Het hang");
+        }
+        private void filterProducts1(){
+            String selectedtrangThai = cbbtrangThai.getSelectedItem().toString();
+            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+            if(!selectedtrangThai.equals("All")){
+                switch(selectedtrangThai){
+                    case "Con hang":
+                        filteredList = repo_SP.filterByTrangThai("Con hang");
+                        break;
+                    case "Het hang":
+                        filteredList = repo_SP.filterByTrangThai("Het hang");
+                        break;
+                }
+            }
+            fillTable(filteredList);
+        }
+        private void  populateFilterCombos2(){
+            cbbgiatien.addItem("All");
+            cbbgiatien.addItem("< 10000");
+            cbbgiatien.addItem("10000 - 50000");
+            cbbgiatien.addItem(">=50000");
+        }
+        private void filterProducts2(){
+            String selectedPriceRange = cbbgiatien.getSelectedItem().toString();
+            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+            if (!selectedPriceRange.equals("All")) {
+                switch (selectedPriceRange) {
+                    case "< 10000":
+                        filteredList = repo_SP.filterByPriceRange(0, 10000);
+                        break;
+                    case "10000 - 50000":
+                        filteredList = repo_SP.filterByPriceRange(10001, 50000);
+                        break;
+                    case ">=50000":
+                        filteredList = repo_SP.filterByPriceRange(50001, Float.MAX_VALUE);
+                        break;
+                }
+            }
+            fillTable(filteredList);
+        }
+    
+
+        
     void clearForm(){
         txtmasp.setText("");
         txttensp.setText("");
@@ -185,6 +186,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnthem = new javax.swing.JButton();
         btnsua = new javax.swing.JButton();
         btnxoa = new javax.swing.JButton();
+        btnlammoi = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txttimkiem = new javax.swing.JTextField();
@@ -198,8 +200,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
         cbbgiatien = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         cbbtrangThai = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jToolBar2 = new javax.swing.JToolBar();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -276,6 +276,15 @@ public class QuanLySanPham extends javax.swing.JFrame {
             }
         });
 
+        btnlammoi.setBackground(new java.awt.Color(204, 204, 204));
+        btnlammoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlammoi.setText("Làm mới");
+        btnlammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlammoiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -299,18 +308,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(rdoconhang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rdohethang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtmota, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnxoa, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rdoconhang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdohethang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtmota, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbmadanhmuc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnsua, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnthem, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnxoa, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btnlammoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -346,7 +354,9 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnsua)
                         .addGap(18, 18, 18)
-                        .addComponent(btnxoa)))
+                        .addComponent(btnxoa)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnlammoi)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -449,8 +459,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Mã Danh Mục");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -462,16 +470,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
                     .addComponent(cbbgiatien, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbbtrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 76, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(82, Short.MAX_VALUE))
+                    .addComponent(cbbtrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,11 +491,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbbtrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -752,6 +751,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Vui lòng nhập đầy đủ thông tin");
             return;
         }
+        
         float giaTien;
         try {
              giaTien = Float.parseFloat(giaTiensp);
@@ -796,6 +796,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Vui lòng nhập đầy đủ thông tin");
             return;
         }
+
+        
         float giaTien;
         try {
              giaTien = Float.parseFloat(giaTiensp);
@@ -830,21 +832,32 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnxoaActionPerformed
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
-        String tenSPct = txttimkiem.getText().trim();
-        if(repo_SP.timKiem(tenSPct).isEmpty()){
-            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo tên vừa tìm");
-        }else{
-            this.fillTable(repo_SP.timKiem(tenSPct));
-            JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
-        }
+//        String tenSPct = txttimkiem.getText().trim();
+//        if(repo_SP.timKiem(tenSPct).isEmpty()){
+//            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo tên vừa tìm");
+//        }else{
+//            this.fillTable(repo_SP.timKiem(tenSPct));
+//            JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
+//        }
+          String tenSPct = txttimkiem.getText().trim();
+          String trangThaict = txttimkiem.getText().trim();
+          String maDanhMucct = txttimkiem.getText().trim();
+          if(repo_SP.timKiem(tenSPct,trangThaict, maDanhMucct).isEmpty()){
+              JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách cần tìm");
+          }else{
+              this.fillTable(repo_SP.timKiem(tenSPct,trangThaict, maDanhMucct));
+              JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
+          }
     }//GEN-LAST:event_btntimkiemActionPerformed
 
     private void cbbtenspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbtenspActionPerformed
         this.filterProducts();
+           
     }//GEN-LAST:event_cbbtenspActionPerformed
 
     private void cbbgiatienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbgiatienActionPerformed
         this.filterProducts2();
+
     }//GEN-LAST:event_cbbgiatienActionPerformed
 
     private void tblQLDMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLDMMouseClicked
@@ -864,6 +877,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mã bị trùng ! Vui lòng nhập mã khác");
             return;
         }
+
         Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
         this.repo_DanhMuc.them1(dm);
         this.fillTable1(repo_DanhMuc.getAll1());
@@ -885,6 +899,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
             return;
         }
+       
         Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
         this.repo_DanhMuc.sua1(dm, maDM);
         this.fillTable1(repo_DanhMuc.getAll1());
@@ -917,7 +932,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
 
     private void cbbtrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbtrangThaiActionPerformed
         this.filterProducts1();
+
     }//GEN-LAST:event_cbbtrangThaiActionPerformed
+
+    private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
+        txtmasp.setText("");
+        txttensp.setText("");
+        txtgiatien.setText("");
+        txtmota.setText("");
+        rdoconhang.setSelected(true);
+        cbbmadanhmuc.setSelectedIndex(0);
+    }//GEN-LAST:event_btnlammoiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -958,6 +983,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnlammoi;
     private javax.swing.JButton btnsua;
     private javax.swing.JButton btnsuadm;
     private javax.swing.JButton btnthem;
@@ -971,12 +997,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbmadanhmuc;
     private javax.swing.JComboBox<String> cbbtensp;
     private javax.swing.JComboBox<String> cbbtrangThai;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
