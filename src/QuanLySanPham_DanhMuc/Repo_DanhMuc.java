@@ -95,13 +95,14 @@ public class Repo_DanhMuc {
             return 0;
         }
     }
-     public ArrayList<Model_DanhMuc> TimKiem1(String tenDMct){
+     public ArrayList<Model_DanhMuc> TimKiem1(String tenDMct , String trangThaict){
         ArrayList<Model_DanhMuc> listdm = new ArrayList<>();
-        sql = "Select MaDanhMuc,TenDanhMuc,TrangThai from DanhMucChiTiet where TenDanhMuc like ?";
+        sql = "Select MaDanhMuc,TenDanhMuc,TrangThai from DanhMucChiTiet where TenDanhMuc like ? or TrangThai like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1,'%'+tenDMct+'%');
+            pr.setObject(2, '%'+trangThaict+'%');
             rs = pr.executeQuery();
             while(rs.next()){
                 String maDM,tenDM,trangThai;

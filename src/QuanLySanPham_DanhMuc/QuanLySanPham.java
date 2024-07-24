@@ -125,7 +125,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
         String giaTien = tblQLSP.getValueAt(i, 2).toString();
         String trangThai = tblQLSP.getValueAt(i, 3).toString();
         String maDM = tblQLSP.getValueAt(i, 4).toString();
-        
+//        txtmasp.disable(); // không cho phép sửa mã khi thực hiện sửa
         txtmasp.setText(maSP);
         txttensp.setText(tenSP);
         txtgiatien.setText(giaTien);
@@ -170,6 +170,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
         String maDM = tblQLDM.getValueAt(i,0).toString();
         String tenDM = tblQLDM.getValueAt(i,1).toString();
         String trangThai = tblQLDM.getValueAt(i,2).toString();
+//        txtmadanhmuc.disable();
         txtmadanhmuc.setText(maDM);
         txttendanhmuc.setText(tenDM);
         if(trangThai.equals("Hoat Dong")){
@@ -177,6 +178,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
         }else{
             rdokhonghoatdong.setSelected(true);
         }
+//        if(trangThai.equals("Hoat Dong")){
+//            cbbtrangthaidm.setSelectedItem("Hoat Dong");
+//        }else{
+//            cbbtrangThai.setSelectedItem("Khong Hoat Dong");
+//        }
         
     }
     @SuppressWarnings("unchecked")
@@ -340,24 +346,20 @@ public class QuanLySanPham extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(txtmasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(41, 41, 41)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(txttensp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6)
-                                .addComponent(cbbmadanhmuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addContainerGap(102, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(rdoconhang)
-                                .addComponent(rdohethang))
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtmasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txttensp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(cbbmadanhmuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(rdoconhang)
+                        .addComponent(rdohethang))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnthem)
                         .addGap(18, 18, 18)
@@ -368,8 +370,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnlammoi)
                             .addComponent(jLabel3)
-                            .addComponent(txtgiatien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(41, Short.MAX_VALUE))))
+                            .addComponent(txtgiatien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -596,8 +598,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnsuadm, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnxoadm, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnxoadm, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup2.add(rdohoatDong);
@@ -626,7 +628,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addComponent(rdohoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(rdokhonghoatdong)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -649,10 +651,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
                             .addComponent(rdokhonghoatdong))
                         .addGap(13, 13, 13)
                         .addComponent(txttendanhmuc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(204, 255, 204));
@@ -852,13 +854,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnxoaActionPerformed
 
     private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
-//        String tenSPct = txttimkiem.getText().trim();
-//        if(repo_SP.timKiem(tenSPct).isEmpty()){
-//            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo tên vừa tìm");
-//        }else{
-//            this.fillTable(repo_SP.timKiem(tenSPct));
-//            JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
-//        }
+
           String tenSPct = txttimkiem.getText().trim();
           String trangThaict = txttimkiem.getText().trim();
           String maDanhMucct = txttimkiem.getText().trim();
@@ -886,68 +882,80 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_tblQLDMMouseClicked
 
     private void btnthemdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemdmActionPerformed
-//        String maDM = txtmadanhmuc.getText().trim();
-//        String tenDM = txttendanhmuc.getText().trim();
-//        String moTa = txtmotadanhmuc.getText().trim();
-//        if(maDM.isEmpty() || tenDM.isEmpty()|| moTa.isEmpty()){
-//            JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
-//            return;
-//        }
-//        if(repo_DanhMuc.exitByMa(maDM)){
-//            JOptionPane.showMessageDialog(this, "Mã bị trùng ! Vui lòng nhập mã khác");
-//            return;
-//        }
-//
-//        Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
-//        this.repo_DanhMuc.them1(dm);
-//        this.fillTable1(repo_DanhMuc.getAll1());
-//        this.clearForm();
-//        
-//        JOptionPane.showMessageDialog(this, "Thêm Danh Mục Thành Công");
+        String maDM = txtmadanhmuc.getText().trim();
+        String tenDM = txttendanhmuc.getText().trim();
+        String trangThai;
+        if(rdohoatDong.isSelected()){
+            trangThai ="Hoat Dong";
+        }else{
+            trangThai = "Khong Hoat Dong";
+        }
+        if(maDM.isEmpty() || tenDM.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
+            return;
+        }
+        if(repo_DanhMuc.exitByMa(maDM)){
+            JOptionPane.showMessageDialog(this, "Mã bị trùng ! Vui lòng nhập mã khác");
+            return;
+        }
+
+        Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, trangThai);
+        this.repo_DanhMuc.them1(dm);
+        this.fillTable1(repo_DanhMuc.getAll1());
+        this.clearForm();
+        
+        JOptionPane.showMessageDialog(this, "Thêm Danh Mục Thành Công");
     }//GEN-LAST:event_btnthemdmActionPerformed
 
     private void btnsuadmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuadmActionPerformed
-//        i = tblQLDM.getSelectedRow();
-//        if(i==-1){
-//            JOptionPane.showMessageDialog(this,"Bạn chưa chọn dòng cần sửa");
-//            return;
-//        }
-//        String maDM = txtmadanhmuc.getText().trim();
-//        String tenDM = txttendanhmuc.getText().trim();
-//        String moTa = txtmotadanhmuc.getText().trim();
-//        if(maDM.isEmpty() || tenDM.isEmpty()|| moTa.isEmpty()){
-//            JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
-//            return;
-//        }
-//       
-//        Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, moTa);
-//        this.repo_DanhMuc.sua1(dm, maDM);
-//        this.fillTable1(repo_DanhMuc.getAll1());
-//        this.clearForm();
-//        JOptionPane.showMessageDialog(this,"Sửa danh mục thành công");
+        i = tblQLDM.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(this,"Bạn chưa chọn dòng cần sửa");
+            return;
+        }
+        String maDM = txtmadanhmuc.getText().trim();
+        String tenDM = txttendanhmuc.getText().trim();
+        String trangThai;
+        if(rdohoatDong.isSelected()){
+            trangThai ="Hoat Dong";
+        }else{
+            trangThai = "Khong Hoat Dong";
+        }
+        if(maDM.isEmpty() || tenDM.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Vui lòng nhập đủ thông tin");
+            return;
+        }
+       
+        Model_DanhMuc dm = new Model_DanhMuc(maDM, tenDM, trangThai);
+        this.repo_DanhMuc.sua1(dm, maDM);
+        this.fillTable1(repo_DanhMuc.getAll1());
+        this.clearForm();
+        JOptionPane.showMessageDialog(this,"Sửa danh mục thành công");
     }//GEN-LAST:event_btnsuadmActionPerformed
 
     private void btnxoadmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoadmActionPerformed
-//        i = tblQLDM.getSelectedRow();
-//        if(i==-1){
-//            JOptionPane.showMessageDialog(this,"Bạn chưa chọn dòng cần sửa");
-//            return;
-//        }
-//        String maDMcx = txtmadanhmuc.getText().trim();
-//        this.repo_DanhMuc.xoa1(maDMcx);
-//        this.fillTable1(repo_DanhMuc.getAll1());
-//        this.clearForm();
-//        JOptionPane.showMessageDialog(this,"Xóa Danh Mục Thành Công");
+        i = tblQLDM.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(this,"Bạn chưa chọn dòng cần sửa");
+            return;
+        }
+        String maDMcx = txtmadanhmuc.getText().trim();
+        this.repo_DanhMuc.xoa1(maDMcx);
+        this.fillTable1(repo_DanhMuc.getAll1());
+        this.clearForm();
+        JOptionPane.showMessageDialog(this,"Xóa Danh Mục Thành Công");
     }//GEN-LAST:event_btnxoadmActionPerformed
 
     private void btntimkiemdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemdmActionPerformed
-//        String tenDMct = txttimkiemdm.getText().trim();
-//        if(repo_DanhMuc.TimKiem1(tenDMct).isEmpty()){
-//            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo tên vừa tìm");
-//        }else{
-//            this.fillTable1(repo_DanhMuc.TimKiem1(tenDMct));
-//            JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
-//        }
+        String tenDMct = txttimkiemdm.getText().trim();
+        String trangThaict = txttimkiemdm.getText().trim();
+        
+        if(repo_DanhMuc.TimKiem1(tenDMct,trangThaict).isEmpty()){
+            JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách theo tên vừa tìm");
+        }else{
+            this.fillTable1(repo_DanhMuc.TimKiem1(tenDMct,trangThaict));
+            JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
+        }
     }//GEN-LAST:event_btntimkiemdmActionPerformed
 
     private void cbbtrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbtrangThaiActionPerformed
