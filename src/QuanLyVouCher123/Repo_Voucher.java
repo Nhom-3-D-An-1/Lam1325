@@ -96,16 +96,41 @@ public class Repo_Voucher {
         }
     }
     public int xoa(String maVouchercx){
-        sql = "Delete from Voucher where MaVoucher =?";
+//        sql = "Delete from Voucher where MaVoucher =?";
+//        try {
+//           con = DBConnect.getConnection();
+//            pr = con.prepareStatement(sql);
+//            pr.setObject(1, maVouchercx);
+//            return pr.executeUpdate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return 0;
+//        }
         try {
-           con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1, maVouchercx);
-            return pr.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        con = DBConnect.getConnection();
+
+        // Xóa các bản ghi trong bảng HoaDonChiTiet liên quan
+        String sql = "DELETE FROM HoaDonChiTiet WHERE MaHD IN (SELECT MaHD FROM HoaDon WHERE MaVoucher = ?)";
+        pr = con.prepareStatement(sql);
+        pr.setObject(1, maVouchercx);
+        pr.executeUpdate();
+
+        // Xóa các bản ghi trong bảng HoaDon liên quan
+        sql = "DELETE FROM HoaDon WHERE MaVoucher = ?";
+        pr = con.prepareStatement(sql);
+        pr.setObject(1, maVouchercx);
+        pr.executeUpdate();
+
+        // Cuối cùng, xóa bản ghi trong bảng Voucher
+        sql = "DELETE FROM Voucher WHERE MaVoucher = ?";
+        pr = con.prepareStatement(sql);
+        pr.setObject(1, maVouchercx);
+        return pr.executeUpdate();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return 0;
+    }
     }
      public ArrayList<Model_Voucher> timkiem(String maVocherct, String tenVct,String trangThaict){
         ArrayList<Model_Voucher> listV = new ArrayList<>();
