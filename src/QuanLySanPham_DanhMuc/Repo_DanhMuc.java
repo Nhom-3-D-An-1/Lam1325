@@ -84,16 +84,52 @@ public class Repo_DanhMuc {
         }
     }
     public int xoa1(String maDMcx){
-        sql="Delete from DanhMucChiTiet where MaDanhMuc = ?";
-        try {
-            con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1, maDMcx);
-            return pr.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+//        sql="Delete from DanhMucChiTiet where MaDanhMuc = ?";
+//        try {
+//            con = DBConnect.getConnection();
+//            pr = con.prepareStatement(sql);
+//            pr.setObject(1, maDMcx);
+//            return pr.executeUpdate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return 0;
+//        }
+            Connection con = null;
+    PreparedStatement pr = null;
+    String sqlDeleteProducts = "DELETE FROM SanPham WHERE MaDanhMuc = ?";
+    String sqlDeleteCategory = "DELETE FROM DanhMucChiTiet WHERE MaDanhMuc = ?";
+
+    try {
+        con = DBConnect.getConnection();
+        con.setAutoCommit(false); // Bắt đầu transaction
+
+        // Xóa sản phẩm
+        pr = con.prepareStatement(sqlDeleteProducts);
+        pr.setString(1, maDMcx);
+        pr.executeUpdate();
+
+        // Xóa danh mục
+        pr = con.prepareStatement(sqlDeleteCategory);
+        pr.setString(1, maDMcx);
+        int rowsDeleted = pr.executeUpdate();
+
+        con.commit(); // Hoàn tất transaction
+        return rowsDeleted;
+    } catch (Exception e) {
+        if (con != null) {
+            try {
+                con.rollback(); // Hủy bỏ nếu có lỗi
+            } catch (Exception rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
+        e.printStackTrace();
+        return 0;
+    } finally {
+        if (pr != null) try { pr.close(); } catch (Exception e) { e.printStackTrace(); }
+        if (con != null) try { con.close(); } catch (Exception e) { e.printStackTrace(); }
+    }
+
     }
      public ArrayList<Model_DanhMuc> TimKiem1(String tenDMct , String trangThaict){
         ArrayList<Model_DanhMuc> listdm = new ArrayList<>();

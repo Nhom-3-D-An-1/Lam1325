@@ -88,43 +88,50 @@ public class Repo_SanPham {
         }
     }
     public int xoa(String maSPcx){
-        sql = "Delete from SanPham where MaSP=?";
+        
+    try {
+        con = DBConnect.getConnection();
+        
+        // Bắt đầu giao dịch
+        con.setAutoCommit(false);
+        
+        // Xóa dữ liệu trong bảng HoaDonChiTiet trước
+        String sqlDeleteDetails = "DELETE FROM HoaDonChiTiet WHERE MaSP=?";
+        pr = con.prepareStatement(sqlDeleteDetails);
+        pr.setObject(1, maSPcx);
+        pr.executeUpdate();
+        
+        // Xóa dữ liệu trong bảng SanPham
+        String sqlDeleteProduct = "DELETE FROM SanPham WHERE MaSP=?";
+        pr = con.prepareStatement(sqlDeleteProduct);
+        pr.setObject(1, maSPcx);
+        int result = pr.executeUpdate();
+        
+        // Cam kết giao dịch
+        con.commit();
+        
+        return result;
+    } catch (Exception e) {
+        if (con != null) {
+            try {
+                // Rollback giao dịch nếu có lỗi
+                con.rollback();
+            } catch (Exception rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        }
+        e.printStackTrace();
+        return 0;
+    } finally {
         try {
-            con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1,maSPcx);
-            return pr.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+            if (pr != null) pr.close();
+            if (con != null) con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
-//    public ArrayList<Model_SanPham> timKiem(String tenSPct){
-//        ArrayList<Model_SanPham> listSP = new ArrayList<>();
-//        sql = "Select MaSP,TenSP,GiaTien,MoTa,TrangThai,MaDanhMuc from SanPham where TenSP like ? ";
-//        try {
-//            con = DBConnect.getConnection();
-//            pr = con.prepareStatement(sql);
-//            pr.setObject(1,'%'+tenSPct+'%');
-//            rs = pr.executeQuery();
-//            while(rs.next()){
-//                String maSP,tenSP,moTa,trangThai,maDanhMuc;
-//                float giaTien;
-//                maSP = rs.getString(1);
-//                tenSP = rs.getString(2);
-//                giaTien = rs.getFloat(3);
-//                moTa = rs.getString(4);
-//                trangThai = rs.getString(5);
-//                maDanhMuc = rs.getString(6);
-//                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, moTa, trangThai, maDanhMuc);
-//                listSP.add(sp);
-//            }
-//            return listSP;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+}
+
      public ArrayList<Model_SanPham> timKiem(String tenSPct,String trangThaict, String maDanhMucct){
         ArrayList<Model_SanPham> listSP = new ArrayList<>();
         sql = "Select MaSP,TenSP,GiaTien,TrangThai,MaDanhMuc from SanPham where TenSP like ? or TrangThai like ? or MaDanhMuc like ?  ";
