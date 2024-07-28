@@ -28,7 +28,7 @@ public class QuanLyBanHang1 extends javax.swing.JFrame {
             new String[]{"Mã SP", "Tên SP", "Số lượng", "Giá SP", "Thành tiền"}
         ) {
             @Override
-            public boolean isCellEditable(int row, int column) {
+            public boolean isCellEditable(int row, int column) { // Ghi đè phương thức để chỉ cho phép chỉnh sửa cột "Số lượng" (chỉ số cột là 2).
                 // Cho phép chỉnh sửa cột "Số lượng" (index 2)
                 return column == 2;
             }
