@@ -18,20 +18,19 @@ public class Repo_SanPham {
     
     public ArrayList<Model_SanPham> getAll(){
         ArrayList<Model_SanPham> listSP = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai,MaDanhMuc from SanPham ";
+        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham ";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,trangThai,maDanhMuc;
+                String maSP,tenSP,trangThai;
                 float giaTien;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
                 giaTien = rs.getFloat(3);
                 trangThai = rs.getString(4);
-                maDanhMuc = rs.getString(5);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai, maDanhMuc);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
                 listSP.add(sp);
             }
             return listSP;
@@ -41,7 +40,7 @@ public class Repo_SanPham {
         }
     }
     public int them(Model_SanPham m2){
-        sql = "Insert into SanPham(MaSP,TenSP,GiaTien,TrangThai,MaDanhMuc) values (?,?,?,?,?)";
+        sql = "Insert into SanPham(MaSP,TenSP,GiaTien,TrangThai) values (?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
@@ -49,7 +48,6 @@ public class Repo_SanPham {
             pr.setObject(2, m2.getTenSP());
             pr.setObject(3, m2.getGiaTien());
             pr.setObject(4, m2.getTrangThai());
-            pr.setObject(5, m2.getMaDanhMuc());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,15 +70,14 @@ public class Repo_SanPham {
         return false;
     }
     public int sua(Model_SanPham m2 ,String maSPcs){
-        sql = "Update SanPham set TenSP =?,GiaTien=?,TrangThai=?,MaDanhMuc=? where MaSP =?";
+        sql = "Update SanPham set TenSP =?,GiaTien=?,TrangThai=? where MaSP =?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
-            pr.setObject(5, maSPcs);
+            pr.setObject(4, maSPcs);
             pr.setObject(1, m2.getTenSP());
             pr.setObject(2, m2.getGiaTien());
             pr.setObject(3, m2.getTrangThai());
-            pr.setObject(4, m2.getMaDanhMuc());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,25 +129,23 @@ public class Repo_SanPham {
     }
 }
 
-     public ArrayList<Model_SanPham> timKiem(String tenSPct,String trangThaict, String maDanhMucct){
+     public ArrayList<Model_SanPham> timKiem(String tenSPct,String trangThaict){
         ArrayList<Model_SanPham> listSP = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai,MaDanhMuc from SanPham where TenSP like ? or TrangThai like ? or MaDanhMuc like ?  ";
+        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham where TenSP like ? or TrangThai like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1,'%'+tenSPct+'%');
             pr.setObject(2,'%'+trangThaict+'%');
-            pr.setObject(3,'%'+maDanhMucct+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,moTa,trangThai,maDanhMuc;
+                String maSP,tenSP,moTa,trangThai;
                 float giaTien;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
                 giaTien = rs.getFloat(3);
                 trangThai = rs.getString(4);
-                maDanhMuc = rs.getString(5);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai, maDanhMuc);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
                 listSP.add(sp);
             }
             return listSP;
@@ -169,14 +164,13 @@ public class Repo_SanPham {
             pr.setObject(1,'%'+name+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,trangThai,maDanhMuc;
+                String maSP,tenSP,trangThai;
                 float giaTien;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
                 giaTien = rs.getFloat(3);
                 trangThai = rs.getString(4);
-                maDanhMuc = rs.getString(5);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai, maDanhMuc);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
                 list.add(sp);
             }
             return list;
@@ -195,14 +189,13 @@ public class Repo_SanPham {
             pr.setObject(2,maxPrice);
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,trangThai,maDanhMuc;
+                String maSP,tenSP,trangThai;
                 float giaTien;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
                 giaTien = rs.getFloat(3);
                 trangThai = rs.getString(4);
-                maDanhMuc = rs.getString(5);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai, maDanhMuc);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
                 list.add(sp);
             }
             return list;
@@ -213,21 +206,20 @@ public class Repo_SanPham {
     }
     public ArrayList<Model_SanPham> filterByTrangThai(String trangThaict){
         ArrayList<Model_SanPham> list = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai,MaDanhMuc from SanPham Where TrangThai like ?";
+        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham Where TrangThai like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1,'%'+trangThaict+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,trangThai,maDanhMuc;
+                String maSP,tenSP,trangThai;
                 float giaTien;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
                 giaTien = rs.getFloat(3);
                 trangThai = rs.getString(4);
-                maDanhMuc = rs.getString(5);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai, maDanhMuc);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
                 list.add(sp);
             }
             return list;

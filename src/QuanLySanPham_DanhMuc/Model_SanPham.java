@@ -16,17 +16,15 @@ public class Model_SanPham {
     private String tenSP;
     private float giaTien;
     private String trangThai;
-    private String maDanhMuc;
 
     public Model_SanPham() {
     }
 
-    public Model_SanPham(String maSP, String tenSP, float giaTien, String trangThai, String maDanhMuc) {
+    public Model_SanPham(String maSP, String tenSP, float giaTien, String trangThai) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.giaTien = giaTien;
         this.trangThai = trangThai;
-        this.maDanhMuc = maDanhMuc;
     }
 
     public String getMaSP() {
@@ -62,15 +60,8 @@ public class Model_SanPham {
         this.trangThai = trangThai;
     }
 
-    public String getMaDanhMuc() {
-        return maDanhMuc;
-    }
-
-    public void setMaDanhMuc(String maDanhMuc) {
-        this.maDanhMuc = maDanhMuc;
-    }
     
     public Object[] toDataRow(){
-        return new Object[]{this.getMaSP(),this.getTenSP(),this.getGiaTien(),this.getTrangThai(),this.getMaDanhMuc()};
+        return new Object[]{this.getMaSP(),this.getTenSP(),this.getGiaTien(),this.getTrangThai()};
     }
 }
