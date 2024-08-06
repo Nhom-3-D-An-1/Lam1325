@@ -23,73 +23,127 @@ public class QuanLySanPham extends javax.swing.JFrame {
     public QuanLySanPham() {
         initComponents();
         fillTable(repo_SP.getAll());
+        // Gọi phương thức để điền dữ liệu vào các combobox
+        populateFilterCombos();
 
-        this.populateFilterCombos();
-        this.populateFilterCombos1();
-        this.populateFilterCombos2();
+        // Thiết lập hành động khi thay đổi giá trị của combobox
+        cbbtensp.addActionListener(e -> filterProducts());
+        cbbtrangThai.addActionListener(e -> filterProducts());
+        cbbgiatien.addActionListener(e -> filterProducts());
+
+//        this.populateFilterCombos();
+//        this.populateFilterCombos1();
+//        this.populateFilterCombos2();
     }
-        private void populateFilterCombos() {
-            cbbtensp.addItem("All");
-            for (Model_SanPham sp : repo_SP.getAll()) {
-                cbbtensp.addItem(sp.getTenSP());
-            }
-        }
-        private void filterProducts() {
-            String selectedName = cbbtensp.getSelectedItem().toString();
-            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-            if (!selectedName.equals("All")) {
-                filteredList = repo_SP.filterByName(selectedName);
-            }
-             
-             
-            fillTable(filteredList);
-        }
-        
-        
-        private void populateFilterCombos1(){
-            cbbtrangThai.addItem("All");
-            cbbtrangThai.addItem("Con hang");
-            cbbtrangThai.addItem("Het hang");
-        }
-        private void filterProducts1(){
-            String selectedtrangThai = cbbtrangThai.getSelectedItem().toString();
-            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-            if(!selectedtrangThai.equals("All")){
-                switch(selectedtrangThai){
-                    case "Con hang":
-                        filteredList = repo_SP.filterByTrangThai("Con hang");
-                        break;
-                    case "Het hang":
-                        filteredList = repo_SP.filterByTrangThai("Het hang");
-                        break;
-                }
-            }
-            fillTable(filteredList);
-        }
-        private void  populateFilterCombos2(){
-            cbbgiatien.addItem("All");
-            cbbgiatien.addItem("<=10000");
-            cbbgiatien.addItem("10000 - 30000");
-            cbbgiatien.addItem(">30000");
-        }
-        private void filterProducts2(){
-            String selectedPriceRange = cbbgiatien.getSelectedItem().toString();
-            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
-            if (!selectedPriceRange.equals("All")) {
-                switch (selectedPriceRange) {
-                    case "<=10000":
-                        filteredList = repo_SP.filterByPriceRange(0, 10000);
-                        break;
-                    case "10000 - 30000":
-                        filteredList = repo_SP.filterByPriceRange(10001, 30000);
-                        break;
-                    case ">30000":
-                        filteredList = repo_SP.filterByPriceRange(30001, Float.MAX_VALUE);
-                        break;
-                }
-            }
-            fillTable(filteredList);
-        }
+//        private void populateFilterCombos() {
+//            cbbtensp.addItem("All");
+//            for (Model_SanPham sp : repo_SP.getAll()) {
+//                cbbtensp.addItem(sp.getTenSP());
+//            }
+//        }
+//        private void filterProducts() {
+//            String selectedName = cbbtensp.getSelectedItem().toString();
+//            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+//            if (!selectedName.equals("All")) {
+//                filteredList = repo_SP.filterByName(selectedName);
+//            }
+//             
+//             
+//            fillTable(filteredList);
+//        }
+//        
+//        
+//        private void populateFilterCombos1(){
+//            cbbtrangThai.addItem("All");
+//            cbbtrangThai.addItem("Con hang");
+//            cbbtrangThai.addItem("Het hang");
+//        }
+//        private void filterProducts1(){
+//            String selectedtrangThai = cbbtrangThai.getSelectedItem().toString();
+//            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+//            if(!selectedtrangThai.equals("All")){
+//                switch(selectedtrangThai){
+//                    case "Con hang":
+//                        filteredList = repo_SP.filterByTrangThai("Con hang");
+//                        break;
+//                    case "Het hang":
+//                        filteredList = repo_SP.filterByTrangThai("Het hang");
+//                        break;
+//                }
+//            }
+//            fillTable(filteredList);
+//        }
+//        private void  populateFilterCombos2(){
+//            cbbgiatien.addItem("All");
+//            cbbgiatien.addItem("<=10000");
+//            cbbgiatien.addItem("10000 - 30000");
+//            cbbgiatien.addItem(">30000");
+//        }
+//        private void filterProducts2(){
+//            String selectedPriceRange = cbbgiatien.getSelectedItem().toString();
+//            ArrayList<Model_SanPham> filteredList = repo_SP.getAll();
+//            if (!selectedPriceRange.equals("All")) {
+//                switch (selectedPriceRange) {
+//                    case "<=10000":
+//                        filteredList = repo_SP.filterByPriceRange(0, 10000);
+//                        break;
+//                    case "10000 - 30000":
+//                        filteredList = repo_SP.filterByPriceRange(10001, 30000);
+//                        break;
+//                    case ">30000":
+//                        filteredList = repo_SP.filterByPriceRange(30001, Float.MAX_VALUE);
+//                        break;
+//                }
+//            }
+//            fillTable(filteredList);
+//        }
+    private void populateFilterCombos() {
+    cbbtensp.addItem("All");
+    for (Model_SanPham sp : repo_SP.getAll()) {
+        cbbtensp.addItem(sp.getTenSP());
+    }
+
+    cbbtrangThai.addItem("All");
+    cbbtrangThai.addItem("Còn hàng");
+    cbbtrangThai.addItem("Hết hàng");
+
+    cbbgiatien.addItem("All");
+    cbbgiatien.addItem("<=10000");
+    cbbgiatien.addItem("10000 - 30000");
+    cbbgiatien.addItem(">30000");
+}
+    private void filterProducts() {
+    // Kiểm tra null và gán giá trị mặc định
+    String selectedName = cbbtensp.getSelectedItem() != null ? cbbtensp.getSelectedItem().toString() : "All";
+    String selectedTrangThai = cbbtrangThai.getSelectedItem() != null ? cbbtrangThai.getSelectedItem().toString() : "All";
+    String selectedPriceRange = cbbgiatien.getSelectedItem() != null ? cbbgiatien.getSelectedItem().toString() : "All";
+
+    // Thiết lập bộ lọc tên
+    String nameFilter = selectedName.equals("All") ? "" : selectedName;
+    // Thiết lập bộ lọc trạng thái
+    String trangThaiFilter = selectedTrangThai.equals("All") ? "" : selectedTrangThai;
+
+    // Thiết lập bộ lọc giá
+    float minPrice = 0;
+    float maxPrice = Float.MAX_VALUE;
+
+    switch (selectedPriceRange) {
+        case "<=10000":
+            maxPrice = 10000;
+            break;
+        case "10000 - 30000":
+            minPrice = 10001;
+            maxPrice = 30000;
+            break;
+        case ">30000":
+            minPrice = 30001;
+            break;
+    }
+
+    // Lọc sản phẩm dựa trên tên, giá và trạng thái
+    ArrayList<Model_SanPham> filteredList = repo_SP.filterProducts(nameFilter, minPrice, maxPrice, trangThaiFilter);
+    fillTable(filteredList);
+}
 
 
 
@@ -111,14 +165,16 @@ public class QuanLySanPham extends javax.swing.JFrame {
     void showDaTa(int i){
         String maSP = tblQLSP.getValueAt(i, 0).toString();
         String tenSP = tblQLSP.getValueAt(i, 1).toString();
-        String giaTien = tblQLSP.getValueAt(i, 2).toString();
-        String trangThai = tblQLSP.getValueAt(i, 3).toString();
+        String soLuong = tblQLSP.getValueAt(i, 2).toString();
+        String giaTien = tblQLSP.getValueAt(i, 3).toString();
+        String trangThai = tblQLSP.getValueAt(i, 4).toString();
 //        txtmasp.disable(); // không cho phép sửa mã khi thực hiện sửa
         txtmasp.setText(maSP);
         txttensp.setText(tenSP);
+        txtsoluong.setText(soLuong);
         txtgiatien.setText(giaTien);
         
-        if(trangThai.equals("Het Hang")){
+        if(trangThai.equals("Hết hàng")){
             rdohethang.setSelected(true);
         }else {
             rdoconhang.setSelected(true);
@@ -149,6 +205,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnxoa = new javax.swing.JButton();
         btnlammoi = new javax.swing.JButton();
         btnhienthi = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtsoluong = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txttimkiem = new javax.swing.JTextField();
@@ -234,19 +292,24 @@ public class QuanLySanPham extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Số Lượng");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtmasp, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addComponent(txttensp))
+                    .addComponent(txttensp)
+                    .addComponent(txtsoluong))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -270,7 +333,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addComponent(rdoconhang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdohethang, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +349,9 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnlammoi)
-                            .addComponent(btnhienthi)))
+                            .addComponent(btnhienthi)
+                            .addComponent(jLabel4)
+                            .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -345,7 +410,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã Sản phẩm", "Tên Sản Phẩm", "Giá Tiền", "Trạng Thái"
+                "Mã Sản phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền", "Trạng Thái"
             }
         ));
         tblQLSP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -416,7 +481,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(82, Short.MAX_VALUE))
+                        .addContainerGap(94, Short.MAX_VALUE))
                     .addComponent(cbbtrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
@@ -447,8 +512,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -493,12 +557,13 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         String maSP = txtmasp.getText().trim();
         String tenSP = txttensp.getText().trim();
+        String soLuongstr = txtsoluong.getText().trim();
         String giaTiensp = txtgiatien.getText().trim();
         String trangThai;
         if(rdohethang.isSelected()){
-            trangThai = "Het hang";
+            trangThai = "Hết hàng";
         }else{
-            trangThai = "Con hang";
+            trangThai = "Còn hàng";
         }
         String regex = "^[a-zA-Z0-9]+$";
         if(maSP.isEmpty() || tenSP.isEmpty()||trangThai.isEmpty()){
@@ -509,7 +574,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "chỉ được nhập chữ và số,không được nhập khoảng trắng ");
         return;
     }
-        
+        int soLuong;
+        try {
+            soLuong = Integer.parseInt(soLuongstr);
+            if(soLuong<=0){
+                JOptionPane.showMessageDialog(this, "Số Lượng phải lớn hơn 0");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng là số nguyên");
+            return;
+        }
         float giaTien;
         try {
              giaTien = Float.parseFloat(giaTiensp);
@@ -529,7 +604,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Mã bị trùng ! vui lòng nhập mã khác");
             return;
         }
-        Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
+        Model_SanPham sp = new Model_SanPham(maSP, tenSP, soLuong,giaTien, trangThai);
         this.repo_SP.them(sp);
         this.fillTable(repo_SP.getAll());
         this.clearForm();
@@ -544,19 +619,30 @@ public class QuanLySanPham extends javax.swing.JFrame {
         }
         String maSP = txtmasp.getText().trim();
         String tenSP = txttensp.getText().trim();
+        String soLuongstr = txtsoluong.getText().trim();
         String giaTiensp = txtgiatien.getText().trim();
         String trangThai;
         if(rdoconhang.isSelected()){
-            trangThai = "Con hang";
+            trangThai = "Còn hàng";
         }else{
-            trangThai = "Het hang";
+            trangThai = "Hết hàng";
         }
         if(maSP.isEmpty() || tenSP.isEmpty()||trangThai.isEmpty()){
             JOptionPane.showMessageDialog(this,"Vui lòng nhập đầy đủ thông tin");
             return;
         }
 
-        
+        int soLuong;
+        try {
+            soLuong = Integer.parseInt(soLuongstr);
+            if(soLuong<=0){
+                JOptionPane.showMessageDialog(this, "Số Lượng phải lớn hơn 0");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng là số nguyên");
+            return;
+        }
         float giaTien;
         try {
              giaTien = Float.parseFloat(giaTiensp);
@@ -572,7 +658,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
             if (confirm != JOptionPane.YES_OPTION) {
                 return; // User chose not to proceed
             }
-        Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
+        Model_SanPham sp = new Model_SanPham(maSP, tenSP,soLuong, giaTien, trangThai);
         this.repo_SP.sua(sp, maSP);
         this.fillTable(repo_SP.getAll());
         this.clearForm();
@@ -602,10 +688,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
 
           String tenSPct = txttimkiem.getText().trim();
           String trangThaict = txttimkiem.getText().trim();
-          if(repo_SP.timKiem(tenSPct,trangThaict).isEmpty()){
+          if(repo_SP.timKiem(tenSPct, trangThaict).isEmpty()){
               JOptionPane.showMessageDialog(this,"Không tìm thấy danh sách cần tìm");
           }else{
-              this.fillTable(repo_SP.timKiem(tenSPct,trangThaict));
+              this.fillTable(repo_SP.timKiem(tenSPct, trangThaict));
               JOptionPane.showMessageDialog(this,"Danh sách được tìm thấy");
           }
     }//GEN-LAST:event_btntimkiemActionPerformed
@@ -616,18 +702,19 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbtenspActionPerformed
 
     private void cbbgiatienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbgiatienActionPerformed
-        this.filterProducts2();
+        this.filterProducts();
 
     }//GEN-LAST:event_cbbgiatienActionPerformed
 
     private void cbbtrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbtrangThaiActionPerformed
-        this.filterProducts1();
+        this.filterProducts();
 
     }//GEN-LAST:event_cbbtrangThaiActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
         txtmasp.setText("");
         txttensp.setText("");
+        txtsoluong.setText("");
         txtgiatien.setText("");
         rdoconhang.setSelected(true);
     }//GEN-LAST:event_btnlammoiActionPerformed
@@ -690,6 +777,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -706,6 +794,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JTable tblQLSP;
     private javax.swing.JTextField txtgiatien;
     private javax.swing.JTextField txtmasp;
+    private javax.swing.JTextField txtsoluong;
     private javax.swing.JTextField txttensp;
     private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables

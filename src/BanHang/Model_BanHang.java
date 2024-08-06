@@ -2,30 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package QuanLySanPham_DanhMuc;
+package BanHang;
 
-
-import QuanLySanPham_DanhMuc.*;
-
-/**
- *
- * @author admin
- */
-public class Model_SanPham {
+public class Model_BanHang {
     private String maSP;
     private String tenSP;
-    private int soLuong;
-    private float giaTien;
+    private float donGia;
     private String trangThai;
 
-    public Model_SanPham() {
+    public Model_BanHang() {
     }
 
-    public Model_SanPham(String maSP, String tenSP,int soLuong, float giaTien, String trangThai) {
+    public Model_BanHang(String maSP, String tenSP, float donGia, String trangThai) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.soLuong = soLuong;
-        this.giaTien = giaTien;
+        this.donGia = donGia;
         this.trangThai = trangThai;
     }
 
@@ -45,22 +36,13 @@ public class Model_SanPham {
         this.tenSP = tenSP;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public float getDonGia() {
+        return donGia;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setDonGia(float donGia) {
+        this.donGia = donGia;
     }
-    
-    public float getGiaTien() {
-        return giaTien;
-    }
-
-    public void setGiaTien(float giaTien) {
-        this.giaTien = giaTien;
-    }
-
 
     public String getTrangThai() {
         return trangThai;
@@ -69,9 +51,11 @@ public class Model_SanPham {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-
     
-    public Object[] toDataRow(){
-        return new Object[]{this.getMaSP(),this.getTenSP(),this.getSoLuong(),this.getGiaTien(),this.getTrangThai()};
+    public Object[] toDaTaRow(){
+        return new Object[]{this.getMaSP(),this.getTenSP(),this.getDonGia(),this.getTrangThai()};
     }
+            
+    
+    
 }

@@ -21,22 +21,23 @@ public class Repo_Voucher {
     
     public ArrayList<Model_Voucher> getAll(){
         ArrayList<Model_Voucher> listV = new ArrayList<>();
-        sql = "Select MaVoucher,TenV,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai from Voucher";
+        sql = "Select MaVoucher,TenV,SoTienGiamPhanTram,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai from Voucher";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             while(rs.next()){
-                String maVoucher,tenKM,trangThai;
+                String maVoucher,tenKM,soTienGiamPhanTram,trangThai;
                 Date ngayBatDau,ngayKetThuc;
                 float soTienGiam;
                 maVoucher = rs.getString(1);
                 tenKM = rs.getString(2);
-                soTienGiam = rs.getFloat(3);
-                ngayBatDau = rs.getDate(4);
-                ngayKetThuc = rs.getDate(5);
-                trangThai = rs.getString(6);
-                Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
+                soTienGiamPhanTram = rs.getString(3);
+                soTienGiam = rs.getFloat(4);
+                ngayBatDau = rs.getDate(5);
+                ngayKetThuc = rs.getDate(6);
+                trangThai = rs.getString(7);
+                Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiamPhanTram, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
                 listV.add(mv);
             }
             return listV;
@@ -46,16 +47,17 @@ public class Repo_Voucher {
         }
     }
     public int them(Model_Voucher m2){
-        sql ="Insert into Voucher (MaVoucher,TenV,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai) values (?,?,?,?,?,?)";
+        sql ="Insert into Voucher (MaVoucher,TenV,SoTienGiamPhanTram,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai) values (?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, m2.getMaVoucher());
             pr.setObject(2, m2.getTenKM());
-            pr.setObject(3, m2.getSoTienGiam());
-            pr.setObject(4, m2.getNgayBatDau());
-            pr.setObject(5, m2.getNgayKetThuc());
-            pr.setObject(6, m2.getTrangThai());
+            pr.setObject(3, m2.getSoTienGiamPhanTram());
+            pr.setObject(4, m2.getSoTienGiam());
+            pr.setObject(5, m2.getNgayBatDau());
+            pr.setObject(6, m2.getNgayKetThuc());
+            pr.setObject(7, m2.getTrangThai());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,16 +81,17 @@ public class Repo_Voucher {
         return false;
     }
     public int sua(Model_Voucher m2,String maVouchercs){
-        sql ="Update Voucher set TenV =?,SoTienGiamVND =?, NgayBatDau=?,NgayKetThuc =?,TrangThai=? where MaVoucher=?";
+        sql ="Update Voucher set TenV =?,SoTienGiamPhanTram=?, SoTienGiamVND =?, NgayBatDau=?,NgayKetThuc =?,TrangThai=? where MaVoucher=?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
-            pr.setObject(6, maVouchercs);
+            pr.setObject(7, maVouchercs);
             pr.setObject(1, m2.getTenKM());
-            pr.setObject(2, m2.getSoTienGiam());
-            pr.setObject(3, m2.getNgayBatDau());
-            pr.setObject(4, m2.getNgayKetThuc());
-            pr.setObject(5, m2.getTrangThai());
+            pr.setObject(2, m2.getSoTienGiamPhanTram());
+            pr.setObject(3, m2.getSoTienGiam());
+            pr.setObject(4, m2.getNgayBatDau());
+            pr.setObject(5, m2.getNgayKetThuc());
+            pr.setObject(6, m2.getTrangThai());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,16 +99,6 @@ public class Repo_Voucher {
         }
     }
     public int xoa(String maVouchercx){
-//        sql = "Delete from Voucher where MaVoucher =?";
-//        try {
-//           con = DBConnect.getConnection();
-//            pr = con.prepareStatement(sql);
-//            pr.setObject(1, maVouchercx);
-//            return pr.executeUpdate();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return 0;
-//        }
         try {
         con = DBConnect.getConnection();
 
@@ -134,7 +127,7 @@ public class Repo_Voucher {
     }
      public ArrayList<Model_Voucher> timkiem(String maVocherct, String tenVct,String trangThaict){
         ArrayList<Model_Voucher> listV = new ArrayList<>();
-        sql = "Select MaVoucher,TenV,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai from Voucher where MaVoucher like? or TenV like ? or TrangThai like ?";
+        sql = "Select MaVoucher,TenV,SoTienGiamPhanTram,SoTienGiamVND,NgayBatDau,NgayKetThuc,TrangThai from Voucher where MaVoucher like? or TenV like ? or TrangThai like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
@@ -143,16 +136,17 @@ public class Repo_Voucher {
             pr.setObject(3,'%'+trangThaict+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maVoucher,tenKM,trangThai;
+                String maVoucher,tenKM,soTienGiamPhanTram,trangThai;
                 Date ngayBatDau,ngayKetThuc;
-                float soTienGiam;
+                float  soTienGiam;
                 maVoucher = rs.getString(1);
                 tenKM = rs.getString(2);
-                soTienGiam = rs.getFloat(3);
-                ngayBatDau = rs.getDate(4);
-                ngayKetThuc = rs.getDate(5);
-                trangThai = rs.getString(6);
-                Model_Voucher mv = new Model_Voucher(maVoucher, tenKM, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
+                soTienGiamPhanTram = rs.getString(3);
+                soTienGiam = rs.getFloat(4);
+                ngayBatDau = rs.getDate(5);
+                ngayKetThuc = rs.getDate(6);
+                trangThai = rs.getString(7);
+                Model_Voucher mv = new Model_Voucher(maVoucher, tenKM,soTienGiamPhanTram, soTienGiam, ngayBatDau, ngayKetThuc, trangThai);
                 listV.add(mv);
             }
             return listV;

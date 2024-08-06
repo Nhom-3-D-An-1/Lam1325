@@ -16,6 +16,7 @@ import java.util.Date;
 public class Model_Voucher {
     private String maVoucher;
     private String tenKM;
+    private String SoTienGiamPhanTram ;
     private float soTienGiam;
     private Date ngayBatDau;
     private Date ngayKetThuc;
@@ -24,9 +25,10 @@ public class Model_Voucher {
     public Model_Voucher() {
     }
 
-    public Model_Voucher(String maVoucher, String tenKM, float soTienGiam, Date ngayBatDau, Date ngayKetThuc, String trangThai) {
+    public Model_Voucher(String maVoucher, String tenKM,String SoTienGiamPhanTram, float soTienGiam, Date ngayBatDau, Date ngayKetThuc, String trangThai) {
         this.maVoucher = maVoucher;
         this.tenKM = tenKM;
+        this.SoTienGiamPhanTram = SoTienGiamPhanTram;
         this.soTienGiam = soTienGiam;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
@@ -48,6 +50,15 @@ public class Model_Voucher {
     public void setTenKM(String tenKM) {
         this.tenKM = tenKM;
     }
+
+    public String getSoTienGiamPhanTram() {
+        return SoTienGiamPhanTram;
+    }
+
+    public void setSoTienGiamPhanTram(String SoTienGiamPhanTram) {
+        this.SoTienGiamPhanTram = SoTienGiamPhanTram;
+    }
+    
 
     public float getSoTienGiam() {
         return soTienGiam;
@@ -84,6 +95,6 @@ public class Model_Voucher {
     
     
     public Object[] toDaTaRow(){
-        return new Object[]{this.getMaVoucher(),this.getTenKM(),this.getSoTienGiam(),this.getNgayBatDau(),this.getNgayKetThuc(),this.getTrangThai()};
+        return new Object[]{this.getMaVoucher(),this.getTenKM(),this.getSoTienGiamPhanTram(),this.getSoTienGiam(),this.getNgayBatDau(),this.getNgayKetThuc(),this.getTrangThai()};
     }
 }

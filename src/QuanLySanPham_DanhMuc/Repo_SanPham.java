@@ -18,7 +18,7 @@ public class Repo_SanPham {
     
     public ArrayList<Model_SanPham> getAll(){
         ArrayList<Model_SanPham> listSP = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham ";
+        sql = "Select MaSP,TenSP,SoLuong,GiaTien,TrangThai from SanPham ";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
@@ -26,11 +26,13 @@ public class Repo_SanPham {
             while(rs.next()){
                 String maSP,tenSP,trangThai;
                 float giaTien;
+                int soLuong;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
-                giaTien = rs.getFloat(3);
-                trangThai = rs.getString(4);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
+                soLuong = rs.getInt(3);
+                giaTien = rs.getFloat(4);
+                trangThai = rs.getString(5);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, soLuong, giaTien, trangThai);
                 listSP.add(sp);
             }
             return listSP;
@@ -40,14 +42,15 @@ public class Repo_SanPham {
         }
     }
     public int them(Model_SanPham m2){
-        sql = "Insert into SanPham(MaSP,TenSP,GiaTien,TrangThai) values (?,?,?,?)";
+        sql = "Insert into SanPham(MaSP,TenSP,SoLuong,GiaTien,TrangThai) values (?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, m2.getMaSP());
             pr.setObject(2, m2.getTenSP());
-            pr.setObject(3, m2.getGiaTien());
-            pr.setObject(4, m2.getTrangThai());
+            pr.setObject(3, m2.getSoLuong());
+            pr.setObject(4, m2.getGiaTien());
+            pr.setObject(5, m2.getTrangThai());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,14 +73,15 @@ public class Repo_SanPham {
         return false;
     }
     public int sua(Model_SanPham m2 ,String maSPcs){
-        sql = "Update SanPham set TenSP =?,GiaTien=?,TrangThai=? where MaSP =?";
+        sql = "Update SanPham set TenSP =?,SoLuong=?,GiaTien=?,TrangThai=? where MaSP =?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
-            pr.setObject(4, maSPcs);
+            pr.setObject(5, maSPcs);
             pr.setObject(1, m2.getTenSP());
-            pr.setObject(2, m2.getGiaTien());
-            pr.setObject(3, m2.getTrangThai());
+            pr.setObject(2, m2.getSoLuong());
+            pr.setObject(3, m2.getGiaTien());
+            pr.setObject(4, m2.getTrangThai());
             return pr.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,7 +135,7 @@ public class Repo_SanPham {
 
      public ArrayList<Model_SanPham> timKiem(String tenSPct,String trangThaict){
         ArrayList<Model_SanPham> listSP = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham where TenSP like ? or TrangThai like ?";
+        sql = "Select MaSP,TenSP,SoLuong,GiaTien,TrangThai from SanPham where TenSP like ?  or TrangThai like ?";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
@@ -139,13 +143,15 @@ public class Repo_SanPham {
             pr.setObject(2,'%'+trangThaict+'%');
             rs = pr.executeQuery();
             while(rs.next()){
-                String maSP,tenSP,moTa,trangThai;
+                String maSP,tenSP,trangThai;
                 float giaTien;
+                int soLuong;
                 maSP = rs.getString(1);
                 tenSP = rs.getString(2);
-                giaTien = rs.getFloat(3);
-                trangThai = rs.getString(4);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
+                soLuong = rs.getInt(3);
+                giaTien = rs.getFloat(4);
+                trangThai = rs.getString(5);
+                Model_SanPham sp = new Model_SanPham(maSP, tenSP, soLuong, giaTien, trangThai);
                 listSP.add(sp);
             }
             return listSP;
@@ -155,79 +161,35 @@ public class Repo_SanPham {
         }
     }
 
-    public ArrayList<Model_SanPham> filterByName(String name){
-         ArrayList<Model_SanPham> list = new ArrayList<>();
-         sql = "SELECT * FROM SanPham WHERE tenSP LIKE ?";
-         try {
-            con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1,'%'+name+'%');
-            rs = pr.executeQuery();
-            while(rs.next()){
-                String maSP,tenSP,trangThai;
-                float giaTien;
-                maSP = rs.getString(1);
-                tenSP = rs.getString(2);
-                giaTien = rs.getFloat(3);
-                trangThai = rs.getString(4);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
-                list.add(sp);
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+     public ArrayList<Model_SanPham> filterProducts(String name, float minPrice, float maxPrice, String trangThai) {
+    ArrayList<Model_SanPham> list = new ArrayList<>();
+    String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? AND GiaTien BETWEEN ? AND ? AND TrangThai LIKE ?";
+    try {
+        con = DBConnect.getConnection();
+        pr = con.prepareStatement(sql);
+        pr.setObject(1, '%' + name + '%');
+        pr.setObject(2, minPrice);
+        pr.setObject(3, maxPrice);
+        pr.setObject(4, '%' + trangThai + '%');
+        rs = pr.executeQuery();
+        while (rs.next()) {
+            String maSP, tenSP, trangThaiResult;
+            float giaTien;
+            int soLuong;
+            maSP = rs.getString(1);
+            tenSP = rs.getString(2);
+            soLuong = rs.getInt(3);
+            giaTien = rs.getFloat(4);
+            trangThaiResult = rs.getString(5);
+            Model_SanPham sp = new Model_SanPham(maSP, tenSP,soLuong, giaTien, trangThaiResult);
+            list.add(sp);
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
     }
-    public ArrayList<Model_SanPham> filterByPriceRange(float minPrice, float maxPrice){
-        ArrayList<Model_SanPham> list = new ArrayList<>();
-        sql = "SELECT * FROM SanPham WHERE GiaTien BETWEEN ? AND ?";
-        try {
-            con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1, minPrice);
-            pr.setObject(2,maxPrice);
-            rs = pr.executeQuery();
-            while(rs.next()){
-                String maSP,tenSP,trangThai;
-                float giaTien;
-                maSP = rs.getString(1);
-                tenSP = rs.getString(2);
-                giaTien = rs.getFloat(3);
-                trangThai = rs.getString(4);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
-                list.add(sp);
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public ArrayList<Model_SanPham> filterByTrangThai(String trangThaict){
-        ArrayList<Model_SanPham> list = new ArrayList<>();
-        sql = "Select MaSP,TenSP,GiaTien,TrangThai from SanPham Where TrangThai like ?";
-        try {
-            con = DBConnect.getConnection();
-            pr = con.prepareStatement(sql);
-            pr.setObject(1,'%'+trangThaict+'%');
-            rs = pr.executeQuery();
-            while(rs.next()){
-                String maSP,tenSP,trangThai;
-                float giaTien;
-                maSP = rs.getString(1);
-                tenSP = rs.getString(2);
-                giaTien = rs.getFloat(3);
-                trangThai = rs.getString(4);
-                Model_SanPham sp = new Model_SanPham(maSP, tenSP, giaTien, trangThai);
-                list.add(sp);
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    return list;
+}
 
     
 }

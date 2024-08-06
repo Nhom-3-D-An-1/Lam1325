@@ -14,27 +14,27 @@ import java.util.Date;
 public class HoaDon {
     private String MaHD;
     private String MaNV;
-    private int SDT;
+    private String SDT;
     private Date NgayTao;
     private float TongTien;
+    private String TrangThai;
+    private String DiaChi;
     private String MaKH;
     private String MaVoucher;
-    private int MaBan;
-    private String DiaChi;
 
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, String MaNV, int SDT, Date NgayTao, float TongTien, String MaKH, String MaVoucher, int MaBan, String DiaChi) {
+    public HoaDon(String MaHD, String MaNV, String SDT, Date NgayTao, float TongTien, String TrangThai, String DiaChi, String MaKH, String MaVoucher) {
         this.MaHD = MaHD;
         this.MaNV = MaNV;
         this.SDT = SDT;
         this.NgayTao = NgayTao;
         this.TongTien = TongTien;
+        this.TrangThai = TrangThai;
+        this.DiaChi = DiaChi;
         this.MaKH = MaKH;
         this.MaVoucher = MaVoucher;
-        this.MaBan = MaBan;
-        this.DiaChi = DiaChi;
     }
 
     public String getMaHD() {
@@ -53,11 +53,11 @@ public class HoaDon {
         this.MaNV = MaNV;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
 
@@ -77,6 +77,22 @@ public class HoaDon {
         this.TongTien = TongTien;
     }
 
+    public String getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(String TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
+    }
+
     public String getMaKH() {
         return MaKH;
     }
@@ -93,21 +109,7 @@ public class HoaDon {
         this.MaVoucher = MaVoucher;
     }
 
-    public int getMaBan() {
-        return MaBan;
-    }
-
-    public void setMaBan(int MaBan) {
-        this.MaBan = MaBan;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
-    }
+    
     
     
     
